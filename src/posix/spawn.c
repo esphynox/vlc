@@ -146,8 +146,12 @@ static int vlc_spawn_inner(pid_t *restrict pid, const char *path,
     *pid = fork();
 
     switch (*pid) {
-         case -1:
-             return errno;
+         case -1: {
+             int err = errno;
+             free(vargv);
+             vlc_close(nulfd);
+             return err;
+         }
 
          case 0:
              break;
