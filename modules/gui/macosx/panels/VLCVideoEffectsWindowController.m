@@ -150,7 +150,8 @@ NSString *VLCVideoEffectsProfileNamesKey = @"VideoEffectProfileNames";
 
     if (b_filter_changed)
         var_SetString(vout, "video-splitter", [tempString UTF8String]);
-    vout_Release(vout);
+    if (vout)
+        vout_Release(vout);
 
     /* try to set filter values on-the-fly and store them appropriately */
     // index 3 is deprecated
